@@ -1,0 +1,87 @@
+org: stevensc
+app: lite-thinking-inventory-dynamo
+service: lite-thinking-inventory-dynamo
+frameworkVersion: '3'
+
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  timeout: 180
+  memorySize: 256
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - cognito-idp:AdminInitiateAuth
+        - cognito-idp:AdminCreateUser
+        - cognito-idp:AdminSetUserPassword
+      Resource: "*"
+
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:Query
+        - dynamodb:PutItem
+        - dynamodb:Scan
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:382572906864:table/Lite-Thinking-dev"
+
+functions:
+  createCompany:
+    handler: index.createInventony
+    timeout: 180
+    memorySize: 256
+    events:
+      - http:
+          path: inventory
+          method: post
+          cors: true # <-- CORS!
+          authorizer:
+            name: PrivateAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: arn:aws:cognito-idp:us-east-1:382572906864:userpool/us-east-1_3wxvIMG40
+
+  getInventories:
+    handler: index.getInventories
+    timeout: 180
+    memorySize: 256
+    events:
+      - http:
+          path: getInventories
+          method: post
+          cors: true # <-- CORS!
+          authorizer:
+            name: PrivateAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: arn:aws:cognito-idp:us-east-1:382572906864:userpool/us-east-1_3wxvIMG40
+
+  getInventory:
+    handler: index.getInventory
+    timeout: 180
+    memorySize: 256
+    events:
+      - http:
+          path: getInventory
+          method: post
+          cors: true # <-- CORS!
+          authorizer:
+            name: PrivateAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: arn:aws:cognito-idp:us-east-1:382572906864:userpool/us-east-1_3wxvIMG40
+
+  deleteInventory:
+    handler: index.deleteInventory
+    timeout: 180
+    memorySize: 256
+    events:
+      - http:
+          path: deleteInventory
+          method: post
+          cors: true # <-- CORS!
+          authorizer:
+            name: PrivateAuthorizer
+            type: COGNITO_USER_POOLS
+            arn: arn:aws:cognito-idp:us-east-1:382572906864:userpool/us-east-1_3wxvIMG40
+

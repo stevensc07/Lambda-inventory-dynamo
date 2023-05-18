@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "createorUpdateInventory",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "fullName": "string",
+      "description": "string",
+      "nit": "string",
+      "quantity": "number"
+    }
+  ],
+  "required": ["fullName", "nit", "quantity"],
+  "additionalProperties": true,
+  "properties": {
+    "fullName": {
+      "$id": "#/properties/fullName",
+      "type": "string",
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "The fullName schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": ""
+    },
+    "description": {
+      "$id": "#/properties/description",
+      "type": "string",
+      "maxLength": 256,
+      "title": "The description schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": ""
+    },
+    "nit": {
+      "$id": "#/properties/nit",
+      "type": "string",
+      "maxLength": 20,
+      "minLength": 1,
+      "title": "The nit schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": ""
+    },
+    "quantity": {
+      "$id": "#/properties/quantity",
+      "type": "number",
+      "maxLength": 12,
+      "minLength": 1,
+      "title": "The quantity schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": ""
+    }
+  }
+}
